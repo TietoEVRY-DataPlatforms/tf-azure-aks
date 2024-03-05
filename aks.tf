@@ -129,6 +129,64 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
   }
   automatic_channel_upgrade = var.automatic_channel_upgrade
 
+  dynamic "maintenance_window_allowed" {
+    for_each = var.maintenance_window.allowed
+    content {
+      allowed {
+        day   = maintenance_window_allowed.value.day
+        hours = maintenance_window_allowed.value.hours
+      }
+    }
+  }
+
+  dynamic "maintenance_window_not_allowed" {
+    for_each = var.maintenance_window.not_allowed
+    content {
+      not_allowed {
+        start = maintenance_window_not_allowed.value.start
+        end   = maintenance_window_not_allowed.value.end
+      }
+    }
+  }
+
+  maintenance_window_auto_upgrade {
+    frequency    = var.frequency
+    interval     = var.interval
+    duration     = var.duration
+    day_of_week  = var.day_of_week
+    day_of_month = var.day_of_month
+    week_index   = var.week_index
+    start_time   = var.start_time
+    utc_offset   = var.utc_offset
+    start_date   = var.start_date
+    not_allowed {
+      start = maintenance_window_not_allowed.value.start
+      end   = maintenance_window_not_allowed.value.end
+    }
+  }
+
+
+  node_os_channel_upgrade = var.node_os_channel_upgrade
+
+  maintenance_window_node_os {
+    frequency    = var.frequency
+    interval     = var.interval
+    duration     = var.duration
+    day_of_week  = var.day_of_week
+    day_of_month = var.day_of_month
+    week_index   = var.week_index
+    start_time   = var.start_time
+    utc_offset   = var.utc_offset
+    start_date   = var.start_date
+    not_allowed {
+      start = maintenance_window_not_allowed.value.start
+      end   = maintenance_window_not_allowed.value.end
+    }
+  }
+  upgrade_settings {
+    max_surge = var.max_surge
+  }
+
   linux_profile {
     admin_username = var.admin_username
 

@@ -274,6 +274,78 @@ variable "automatic_channel_upgrade" {
   default = null
 }
 
+variable "maintenance_window" {
+  description = "Maintenance window configuration"
+  type = object({
+    allowed = map(object({
+      day   = string
+      hours = list(number)
+    }))
+    not_allowed = map(object({
+      start = string
+      end   = string
+    }))
+  })
+}
+
+variable "node_os_channel_upgrade" {
+  type        = string
+  default     = "NodeImage"
+  description = "automatically upgrades the node image to the latest version available."
+}
+
+variable "max_surge" {
+  type        = string
+  default     = null
+  description = "The maximum percentage of nodes which will be added to the Node Pool size during an upgrade"
+}
+
+variable "frequency" {
+  description = "Frequency of maintenance."
+  type        = string
+}
+
+variable "interval" {
+  description = "The interval for maintenance runs."
+  type        = number
+}
+
+variable "duration" {
+  description = "The duration of the window for maintenance to run in hours."
+  type        = string
+}
+
+variable "day_of_week" {
+  description = "The day of the week for the maintenance run."
+  type        = string
+}
+
+variable "day_of_month" {
+  description = "The day of the month for the maintenance run."
+  type        = number
+}
+
+variable "week_index" {
+  description = "Specifies on which instance of the allowed days specified in day_of_week the maintenance occurs."
+  type        = string
+}
+
+variable "start_time" {
+  description = "The time for maintenance to begin, based on the timezone determined by utc_offset."
+  type        = string
+}
+
+variable "utc_offset" {
+  description = "Used to determine the timezone for cluster maintenance."
+  type        = string
+}
+
+variable "start_date" {
+  description = "The date on which the maintenance window begins to take effect."
+  type        = string
+}
+
+
 # Ingress Application Gateway
 variable "ingress_application_gateway_enable" {
   type    = bool
