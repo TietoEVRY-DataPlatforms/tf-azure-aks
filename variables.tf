@@ -296,46 +296,55 @@ variable "max_surge" {
 variable "frequency" {
   description = "Frequency of maintenance."
   type        = string
+  default     = null
 }
 
 variable "interval" {
   description = "The interval for maintenance runs."
   type        = number
+  default     = null
 }
 
 variable "duration" {
   description = "The duration of the window for maintenance to run in hours."
   type        = string
+  default     = null
 }
 
 variable "day_of_week" {
   description = "The day of the week for the maintenance run."
   type        = string
+  default     = null
 }
 
 variable "day_of_month" {
   description = "The day of the month for the maintenance run."
   type        = number
+  default     = null
 }
 
 variable "week_index" {
   description = "Specifies on which instance of the allowed days specified in day_of_week the maintenance occurs."
   type        = string
+  default     = null
 }
 
 variable "start_time" {
   description = "The time for maintenance to begin, based on the timezone determined by utc_offset."
   type        = string
+  default     = null
 }
 
 variable "utc_offset" {
   description = "Used to determine the timezone for cluster maintenance."
   type        = string
+  default     = null
 }
 
 variable "start_date" {
   description = "The date on which the maintenance window begins to take effect."
   type        = string
+  default     = null
 }
 
 
