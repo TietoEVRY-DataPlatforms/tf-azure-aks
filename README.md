@@ -43,6 +43,7 @@ No modules.
 | <a name="input_aks_service_cidr"></a> [aks\_service\_cidr](#input\_aks\_service\_cidr) | n/a | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_aks_vnet_subnet_cidr"></a> [aks\_vnet\_subnet\_cidr](#input\_aks\_vnet\_subnet\_cidr) | n/a | `string` | `"10.200.0.0/24"` | no |
 | <a name="input_aks_vnet_subnet_id"></a> [aks\_vnet\_subnet\_id](#input\_aks\_vnet\_subnet\_id) | n/a | `string` | `""` | no |
+| <a name="input_allowed"></a> [allowed](#input\_allowed) | n/a | <pre>map(object({<br>    day   = string<br>    hours = list(number)<br>  }))</pre> | n/a | yes |
 | <a name="input_api_server_authorized_ip_ranges"></a> [api\_server\_authorized\_ip\_ranges](#input\_api\_server\_authorized\_ip\_ranges) | List of IPs to whitelist for incoming to Kubernetes API | `list(string)` | `[]` | no |
 | <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | n/a | `string` | `null` | no |
 | <a name="input_azure_policy_enable"></a> [azure\_policy\_enable](#input\_azure\_policy\_enable) | Turn on Azure Policy in cluster or not | `bool` | `false` | no |
@@ -69,7 +70,6 @@ No modules.
 | <a name="input_kubelet_identity"></a> [kubelet\_identity](#input\_kubelet\_identity) | Identity / RBAC goes here | <pre>object({<br>    client_id                 = string<br>    object_id                 = string<br>    user_assigned_identity_id = string<br>  })</pre> | `null` | no |
 | <a name="input_load_balancer_sku"></a> [load\_balancer\_sku](#input\_load\_balancer\_sku) | Networking settings. | `string` | `"standard"` | no |
 | <a name="input_log_analytics"></a> [log\_analytics](#input\_log\_analytics) | Diagnostics | <pre>map(object({<br>    enabled = bool<br>    retention = object({<br>      enabled = bool<br>      days    = number<br>    })<br>  }))</pre> | `{}` | no |
-| <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | Maintenance window configuration | <pre>object({<br>    allowed = map(object({<br>      day   = string<br>      hours = list(number)<br>    }))<br>    not_allowed = map(object({<br>      start = string<br>      end   = string<br>    }))<br>  })</pre> | n/a | yes |
 | <a name="input_managed_outbound_ip_count"></a> [managed\_outbound\_ip\_count](#input\_managed\_outbound\_ip\_count) | n/a | `number` | `1` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | Max pods to support in this cluster pr node | `number` | `30` | no |
 | <a name="input_max_surge"></a> [max\_surge](#input\_max\_surge) | The maximum percentage of nodes which will be added to the Node Pool size during an upgrade | `string` | `null` | no |
@@ -79,6 +79,7 @@ No modules.
 | <a name="input_node_os_channel_upgrade"></a> [node\_os\_channel\_upgrade](#input\_node\_os\_channel\_upgrade) | automatically upgrades the node image to the latest version available. | `string` | `"NodeImage"` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Node pools to use | `list` | `[]` | no |
 | <a name="input_node_resource_group"></a> [node\_resource\_group](#input\_node\_resource\_group) | n/a | `any` | `null` | no |
+| <a name="input_not_allowed"></a> [not\_allowed](#input\_not\_allowed) | n/a | <pre>map(object({<br>    start = string<br>    end   = string<br>  }))</pre> | n/a | yes |
 | <a name="input_oidc_issuer_enabled"></a> [oidc\_issuer\_enabled](#input\_oidc\_issuer\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_oms_agent_enable"></a> [oms\_agent\_enable](#input\_oms\_agent\_enable) | Enable OMS Agent profile | `bool` | `true` | no |
 | <a name="input_oms_workspace_id"></a> [oms\_workspace\_id](#input\_oms\_workspace\_id) | Operations Management Suite Workspace ID | `string` | `""` | no |
