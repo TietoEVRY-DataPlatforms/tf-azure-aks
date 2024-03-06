@@ -22,7 +22,7 @@ variable "agent_net_name" {
 
 variable "k8s_version" {
   description = "What version of k8s to request from provider"
-  default     = "1.11.4"
+  default     = null
 }
 
 variable "cluster_name" {
@@ -271,7 +271,7 @@ variable "azure_policy_enable" {
 
 variable "automatic_channel_upgrade" {
   type    = string
-  default = null
+  default = "stable"
 }
 
 variable "not_allowed" {
@@ -279,6 +279,8 @@ variable "not_allowed" {
     start = string
     end   = string
   }))
+
+  default = {}
 }
 
 variable "node_os_channel_upgrade" {
@@ -289,26 +291,26 @@ variable "node_os_channel_upgrade" {
 
 variable "max_surge" {
   type        = string
-  default     = null
+  default     = "10"
   description = "The maximum percentage of nodes which will be added to the Node Pool size during an upgrade"
 }
 
 variable "frequency" {
   description = "Frequency of maintenance."
   type        = string
-  default     = null
+  default     = "Weekly"
 }
 
 variable "interval" {
   description = "The interval for maintenance runs."
   type        = number
-  default     = null
+  default     = 1
 }
 
 variable "duration" {
   description = "The duration of the window for maintenance to run in hours."
   type        = string
-  default     = null
+  default     = "5"
 }
 
 variable "day_of_week" {
@@ -338,7 +340,7 @@ variable "start_time" {
 variable "utc_offset" {
   description = "Used to determine the timezone for cluster maintenance."
   type        = string
-  default     = null
+  default     = "+01:00"
 }
 
 variable "start_date" {

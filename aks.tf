@@ -143,8 +143,8 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     dynamic "not_allowed" {
       for_each = var.not_allowed
       content {
-        start = var.not_allowed.start
-        end   = var.not_allowed.end
+        start = not_allowed.value["start"]
+        end   = not_allowed.value["end"]
       }
     }
   }
@@ -167,8 +167,8 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     dynamic "not_allowed" {
       for_each = var.not_allowed
       content {
-        start = var.not_allowed.start
-        end   = var.not_allowed.end
+        start = not_allowed.value["start"]
+        end   = not_allowed.value["end"]
       }
     }
   }
