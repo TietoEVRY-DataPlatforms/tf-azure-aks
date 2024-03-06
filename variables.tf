@@ -274,13 +274,6 @@ variable "automatic_channel_upgrade" {
   default = null
 }
 
-variable "allowed" {
-  type = map(object({
-    day   = string
-    hours = list(number)
-  }))
-}
-
 variable "not_allowed" {
   type = map(object({
     start = string

@@ -139,13 +139,6 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     start_time   = var.start_time
     utc_offset   = var.utc_offset
     start_date   = var.start_date
-    dynamic "allowed" {
-      for_each = var.allowed
-      content {
-        day   = var.allowed.day
-        hours = var.allowed.hours
-      }
-    }
 
     dynamic "not_allowed" {
       for_each = var.not_allowed
@@ -170,13 +163,6 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     utc_offset   = var.utc_offset
     start_date   = var.start_date
 
-    dynamic "allowed" {
-      for_each = var.allowed
-      content {
-        day   = var.allowed.day
-        hours = var.allowed.hours
-      }
-    }
 
     dynamic "not_allowed" {
       for_each = var.not_allowed
@@ -185,9 +171,6 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
         end   = var.not_allowed.end
       }
     }
-  }
-  upgrade_settings {
-    max_surge = var.max_surge
   }
 
   linux_profile {
@@ -221,6 +204,9 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     tags                 = lookup(var.default_pool, "tags", var.tags)
     max_pods             = lookup(var.default_pool, "max_pods", local.default_pool_settings.max_pods)
     orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version)
+    upgrade_settings {
+      max_surge = var.max_surge
+    }
   }
 
   dynamic "service_principal" {
