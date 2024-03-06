@@ -129,26 +129,6 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
   }
   automatic_channel_upgrade = var.automatic_channel_upgrade
 
-  dynamic "maintenance_window_allowed" {
-    for_each = var.maintenance_window.allowed
-    content {
-      allowed {
-        day   = maintenance_window_allowed.value.day
-        hours = maintenance_window_allowed.value.hours
-      }
-    }
-  }
-
-  dynamic "maintenance_window_not_allowed" {
-    for_each = var.maintenance_window.not_allowed
-    content {
-      not_allowed {
-        start = maintenance_window_not_allowed.value.start
-        end   = maintenance_window_not_allowed.value.end
-      }
-    }
-  }
-
   maintenance_window_auto_upgrade {
     frequency    = var.frequency
     interval     = var.interval
@@ -159,9 +139,21 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     start_time   = var.start_time
     utc_offset   = var.utc_offset
     start_date   = var.start_date
-    not_allowed {
-      start = maintenance_window_not_allowed.value.start
-      end   = maintenance_window_not_allowed.value.end
+
+    dynamic "allowed" {
+      for_each = maintenance_window_auto_upgrade.value.allowed
+      content {
+        day   = allowed.value.day
+        hours = allowed.value.hours
+      }
+    }
+
+    dynamic "not_allowed" {
+      for_each = maintenance_window_auto_upgrade.value.not_allowed
+      content {
+        start = not_allowed.value.start
+        end   = not_allowed.value.end
+      }
     }
   }
 
@@ -178,9 +170,20 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     start_time   = var.start_time
     utc_offset   = var.utc_offset
     start_date   = var.start_date
-    not_allowed {
-      start = maintenance_window_not_allowed.value.start
-      end   = maintenance_window_not_allowed.value.end
+
+    dynamic "allowed" {
+      for_each = var.maintenance_window.allowed
+      content {
+        day   = allowed.value.day
+        hours = allowed.value.hours
+      }
+    }
+    dynamic "not_allowed" {
+      for_each = var.maintenance_window.not_allowed
+      content {
+        start = not_allowed.value.start
+        end   = not_allowed.value.end
+      }
     }
   }
   upgrade_settings {
