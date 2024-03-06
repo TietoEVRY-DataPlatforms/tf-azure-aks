@@ -274,18 +274,18 @@ variable "automatic_channel_upgrade" {
   default = null
 }
 
-variable "maintenance_window" {
-  description = "Maintenance window configuration"
-  type = object({
-    allowed = map(object({
-      day   = string
-      hours = list(number)
-    }))
-    not_allowed = map(object({
-      start = string
-      end   = string
-    }))
-  })
+variable "allowed" {
+  type = map(object({
+    day   = string
+    hours = list(number)
+  }))
+}
+
+variable "not_allowed" {
+  type = map(object({
+    start = string
+    end   = string
+  }))
 }
 
 variable "node_os_channel_upgrade" {

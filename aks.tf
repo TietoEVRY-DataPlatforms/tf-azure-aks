@@ -139,20 +139,19 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     start_time   = var.start_time
     utc_offset   = var.utc_offset
     start_date   = var.start_date
-
     dynamic "allowed" {
-      for_each = maintenance_window_auto_upgrade.value.allowed
+      for_each = var.allowed
       content {
-        day   = allowed.value.day
-        hours = allowed.value.hours
+        day   = var.allowed.day
+        hours = var.allowed.hours
       }
     }
 
     dynamic "not_allowed" {
-      for_each = maintenance_window_auto_upgrade.value.not_allowed
+      for_each = var.not_allowed
       content {
-        start = not_allowed.value.start
-        end   = not_allowed.value.end
+        start = var.not_allowed.start
+        end   = var.not_allowed.end
       }
     }
   }
@@ -172,17 +171,18 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     start_date   = var.start_date
 
     dynamic "allowed" {
-      for_each = var.maintenance_window.allowed
+      for_each = var.allowed
       content {
-        day   = allowed.value.day
-        hours = allowed.value.hours
+        day   = var.allowed.day
+        hours = var.allowed.hours
       }
     }
+
     dynamic "not_allowed" {
-      for_each = var.maintenance_window.not_allowed
+      for_each = var.not_allowed
       content {
-        start = not_allowed.value.start
-        end   = not_allowed.value.end
+        start = var.not_allowed.start
+        end   = var.not_allowed.end
       }
     }
   }
