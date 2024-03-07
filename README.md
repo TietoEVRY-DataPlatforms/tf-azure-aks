@@ -51,7 +51,7 @@ No modules.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | What the k8s cluster should be identified as | `any` | n/a | yes |
 | <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | n/a | `bool` | `true` | no |
 | <a name="input_day_of_month"></a> [day\_of\_month](#input\_day\_of\_month) | The day of the month for the maintenance run. | `number` | `null` | no |
-| <a name="input_day_of_week"></a> [day\_of\_week](#input\_day\_of\_week) | The day of the week for the maintenance run. | `string` | `null` | no |
+| <a name="input_day_of_week"></a> [day\_of\_week](#input\_day\_of\_week) | The day of the week for the maintenance run. | `string` | `"Tuesday"` | no |
 | <a name="input_default_pool"></a> [default\_pool](#input\_default\_pool) | n/a | `map` | `{}` | no |
 | <a name="input_dns_prefix"></a> [dns\_prefix](#input\_dns\_prefix) | n/a | `any` | n/a | yes |
 | <a name="input_duration"></a> [duration](#input\_duration) | The duration of the window for maintenance to run in hours. | `string` | `"5"` | no |
