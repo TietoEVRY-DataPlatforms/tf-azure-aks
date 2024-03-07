@@ -129,6 +129,50 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
   }
   automatic_channel_upgrade = var.automatic_channel_upgrade
 
+  maintenance_window_auto_upgrade {
+    frequency    = var.frequency
+    interval     = var.interval
+    duration     = var.duration
+    day_of_week  = var.day_of_week
+    day_of_month = var.day_of_month
+    week_index   = var.week_index
+    start_time   = var.start_time
+    utc_offset   = var.utc_offset
+    start_date   = var.start_date
+
+    dynamic "not_allowed" {
+      for_each = var.not_allowed
+      content {
+        start = not_allowed.value["start"]
+        end   = not_allowed.value["end"]
+      }
+    }
+  }
+
+
+  node_os_channel_upgrade = var.node_os_channel_upgrade
+
+  maintenance_window_node_os {
+    frequency    = var.frequency
+    interval     = var.interval
+    duration     = var.duration
+    day_of_week  = var.day_of_week
+    day_of_month = var.day_of_month
+    week_index   = var.week_index
+    start_time   = var.start_time
+    utc_offset   = var.utc_offset
+    start_date   = var.start_date
+
+
+    dynamic "not_allowed" {
+      for_each = var.not_allowed
+      content {
+        start = not_allowed.value["start"]
+        end   = not_allowed.value["end"]
+      }
+    }
+  }
+
   linux_profile {
     admin_username = var.admin_username
 
@@ -160,6 +204,9 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     tags                 = lookup(var.default_pool, "tags", var.tags)
     max_pods             = lookup(var.default_pool, "max_pods", local.default_pool_settings.max_pods)
     orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version)
+    upgrade_settings {
+      max_surge = var.max_surge
+    }
   }
 
   dynamic "service_principal" {

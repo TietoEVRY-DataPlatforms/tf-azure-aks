@@ -22,7 +22,7 @@ variable "agent_net_name" {
 
 variable "k8s_version" {
   description = "What version of k8s to request from provider"
-  default     = "1.11.4"
+  default     = null
 }
 
 variable "cluster_name" {
@@ -271,8 +271,84 @@ variable "azure_policy_enable" {
 
 variable "automatic_channel_upgrade" {
   type    = string
-  default = null
+  default = "stable"
 }
+
+variable "not_allowed" {
+  type = map(object({
+    start = string
+    end   = string
+  }))
+
+  default = {}
+}
+
+variable "node_os_channel_upgrade" {
+  type        = string
+  default     = "NodeImage"
+  description = "automatically upgrades the node image to the latest version available."
+}
+
+variable "max_surge" {
+  type        = string
+  default     = "10"
+  description = "The maximum percentage of nodes which will be added to the Node Pool size during an upgrade"
+}
+
+variable "frequency" {
+  description = "Frequency of maintenance."
+  type        = string
+  default     = "Weekly"
+}
+
+variable "interval" {
+  description = "The interval for maintenance runs."
+  type        = number
+  default     = 1
+}
+
+variable "duration" {
+  description = "The duration of the window for maintenance to run in hours."
+  type        = string
+  default     = "5"
+}
+
+variable "day_of_week" {
+  description = "The day of the week for the maintenance run."
+  type        = string
+  default     = null
+}
+
+variable "day_of_month" {
+  description = "The day of the month for the maintenance run."
+  type        = number
+  default     = null
+}
+
+variable "week_index" {
+  description = "Specifies on which instance of the allowed days specified in day_of_week the maintenance occurs."
+  type        = string
+  default     = null
+}
+
+variable "start_time" {
+  description = "The time for maintenance to begin, based on the timezone determined by utc_offset."
+  type        = string
+  default     = null
+}
+
+variable "utc_offset" {
+  description = "Used to determine the timezone for cluster maintenance."
+  type        = string
+  default     = "+01:00"
+}
+
+variable "start_date" {
+  description = "The date on which the maintenance window begins to take effect."
+  type        = string
+  default     = null
+}
+
 
 # Ingress Application Gateway
 variable "ingress_application_gateway_enable" {

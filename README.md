@@ -13,7 +13,7 @@ Terraform Module for Azure AKS
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.0.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.94.0 |
 
 ## Modules
 
@@ -44,33 +44,41 @@ No modules.
 | <a name="input_aks_vnet_subnet_cidr"></a> [aks\_vnet\_subnet\_cidr](#input\_aks\_vnet\_subnet\_cidr) | n/a | `string` | `"10.200.0.0/24"` | no |
 | <a name="input_aks_vnet_subnet_id"></a> [aks\_vnet\_subnet\_id](#input\_aks\_vnet\_subnet\_id) | n/a | `string` | `""` | no |
 | <a name="input_api_server_authorized_ip_ranges"></a> [api\_server\_authorized\_ip\_ranges](#input\_api\_server\_authorized\_ip\_ranges) | List of IPs to whitelist for incoming to Kubernetes API | `list(string)` | `[]` | no |
-| <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | n/a | `string` | `null` | no |
+| <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | n/a | `string` | `"stable"` | no |
 | <a name="input_azure_policy_enable"></a> [azure\_policy\_enable](#input\_azure\_policy\_enable) | Turn on Azure Policy in cluster or not | `bool` | `false` | no |
 | <a name="input_client_id"></a> [client\_id](#input\_client\_id) | azure client id | `any` | `null` | no |
 | <a name="input_client_secret"></a> [client\_secret](#input\_client\_secret) | azure client secret | `any` | `null` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | What the k8s cluster should be identified as | `any` | n/a | yes |
 | <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | n/a | `bool` | `true` | no |
+| <a name="input_day_of_month"></a> [day\_of\_month](#input\_day\_of\_month) | The day of the month for the maintenance run. | `number` | `null` | no |
+| <a name="input_day_of_week"></a> [day\_of\_week](#input\_day\_of\_week) | The day of the week for the maintenance run. | `string` | `null` | no |
 | <a name="input_default_pool"></a> [default\_pool](#input\_default\_pool) | n/a | `map` | `{}` | no |
 | <a name="input_dns_prefix"></a> [dns\_prefix](#input\_dns\_prefix) | n/a | `any` | n/a | yes |
+| <a name="input_duration"></a> [duration](#input\_duration) | The duration of the window for maintenance to run in hours. | `string` | `"5"` | no |
 | <a name="input_enable_diagnostics"></a> [enable\_diagnostics](#input\_enable\_diagnostics) | n/a | `bool` | `false` | no |
+| <a name="input_frequency"></a> [frequency](#input\_frequency) | Frequency of maintenance. | `string` | `"Weekly"` | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | n/a | `list(string)` | `[]` | no |
 | <a name="input_identity_type"></a> [identity\_type](#input\_identity\_type) | n/a | `string` | `"SystemAssigned"` | no |
 | <a name="input_ingress_application_gateway_enable"></a> [ingress\_application\_gateway\_enable](#input\_ingress\_application\_gateway\_enable) | Ingress Application Gateway | `bool` | `false` | no |
 | <a name="input_ingress_application_gateway_name"></a> [ingress\_application\_gateway\_name](#input\_ingress\_application\_gateway\_name) | n/a | `string` | `null` | no |
 | <a name="input_ingress_application_subnet_cidr"></a> [ingress\_application\_subnet\_cidr](#input\_ingress\_application\_subnet\_cidr) | n/a | `string` | `null` | no |
 | <a name="input_ingress_application_subnet_id"></a> [ingress\_application\_subnet\_id](#input\_ingress\_application\_subnet\_id) | n/a | `string` | `null` | no |
-| <a name="input_k8s_version"></a> [k8s\_version](#input\_k8s\_version) | What version of k8s to request from provider | `string` | `"1.11.4"` | no |
+| <a name="input_interval"></a> [interval](#input\_interval) | The interval for maintenance runs. | `number` | `1` | no |
+| <a name="input_k8s_version"></a> [k8s\_version](#input\_k8s\_version) | What version of k8s to request from provider | `any` | `null` | no |
 | <a name="input_key_vault_secrets_provider"></a> [key\_vault\_secrets\_provider](#input\_key\_vault\_secrets\_provider) | n/a | <pre>map(object({<br>    secret_rotation_enabled  = string<br>    secret_rotation_interval = string<br>  }))</pre> | `null` | no |
 | <a name="input_kubelet_identity"></a> [kubelet\_identity](#input\_kubelet\_identity) | Identity / RBAC goes here | <pre>object({<br>    client_id                 = string<br>    object_id                 = string<br>    user_assigned_identity_id = string<br>  })</pre> | `null` | no |
 | <a name="input_load_balancer_sku"></a> [load\_balancer\_sku](#input\_load\_balancer\_sku) | Networking settings. | `string` | `"standard"` | no |
 | <a name="input_log_analytics"></a> [log\_analytics](#input\_log\_analytics) | Diagnostics | <pre>map(object({<br>    enabled = bool<br>    retention = object({<br>      enabled = bool<br>      days    = number<br>    })<br>  }))</pre> | `{}` | no |
 | <a name="input_managed_outbound_ip_count"></a> [managed\_outbound\_ip\_count](#input\_managed\_outbound\_ip\_count) | n/a | `number` | `1` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | Max pods to support in this cluster pr node | `number` | `30` | no |
+| <a name="input_max_surge"></a> [max\_surge](#input\_max\_surge) | The maximum percentage of nodes which will be added to the Node Pool size during an upgrade | `string` | `"10"` | no |
 | <a name="input_metrics"></a> [metrics](#input\_metrics) | n/a | <pre>map(object({<br>    enabled = bool<br>    retention = object({<br>      enabled = bool<br>      days    = number<br>    })<br>  }))</pre> | `{}` | no |
 | <a name="input_msd_enable"></a> [msd\_enable](#input\_msd\_enable) | Enable audit logs collected by Microsoft Defender | `bool` | `false` | no |
 | <a name="input_msd_workspace_id"></a> [msd\_workspace\_id](#input\_msd\_workspace\_id) | Specifies the ID of the Log Analytics Workspace where the audit logs collected by Microsoft Defender should be sent to | `string` | `""` | no |
+| <a name="input_node_os_channel_upgrade"></a> [node\_os\_channel\_upgrade](#input\_node\_os\_channel\_upgrade) | automatically upgrades the node image to the latest version available. | `string` | `"NodeImage"` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Node pools to use | `list` | `[]` | no |
 | <a name="input_node_resource_group"></a> [node\_resource\_group](#input\_node\_resource\_group) | n/a | `any` | `null` | no |
+| <a name="input_not_allowed"></a> [not\_allowed](#input\_not\_allowed) | n/a | <pre>map(object({<br>    start = string<br>    end   = string<br>  }))</pre> | `{}` | no |
 | <a name="input_oidc_issuer_enabled"></a> [oidc\_issuer\_enabled](#input\_oidc\_issuer\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_oms_agent_enable"></a> [oms\_agent\_enable](#input\_oms\_agent\_enable) | Enable OMS Agent profile | `bool` | `true` | no |
 | <a name="input_oms_workspace_id"></a> [oms\_workspace\_id](#input\_oms\_workspace\_id) | Operations Management Suite Workspace ID | `string` | `""` | no |
@@ -88,7 +96,11 @@ No modules.
 | <a name="input_resource_group_location"></a> [resource\_group\_location](#input\_resource\_group\_location) | Location of the RG the environment will run inside | `string` | `"West Europe"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of RG the environment will run inside | `any` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | public key to add to admin\_user in VMs | `any` | n/a | yes |
+| <a name="input_start_date"></a> [start\_date](#input\_start\_date) | The date on which the maintenance window begins to take effect. | `string` | `null` | no |
+| <a name="input_start_time"></a> [start\_time](#input\_start\_time) | The time for maintenance to begin, based on the timezone determined by utc\_offset. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | # Metadata ## | `map` | `{}` | no |
+| <a name="input_utc_offset"></a> [utc\_offset](#input\_utc\_offset) | Used to determine the timezone for cluster maintenance. | `string` | `"+01:00"` | no |
+| <a name="input_week_index"></a> [week\_index](#input\_week\_index) | Specifies on which instance of the allowed days specified in day\_of\_week the maintenance occurs. | `string` | `null` | no |
 | <a name="input_workload_identity_enabled"></a> [workload\_identity\_enabled](#input\_workload\_identity\_enabled) | n/a | `bool` | `false` | no |
 
 ## Outputs
