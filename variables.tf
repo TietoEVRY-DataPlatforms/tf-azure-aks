@@ -339,7 +339,7 @@ variable "maintenance_window_node_os" {
   })
   default     = null
   description = <<-EOT
- - `day_of_month` -
+ - `day_of_month` - (Optional) The day of the month for the maintenance run. Required in combination with RelativeMonthly frequency. Value between 0 and 31 (inclusive).
  - `day_of_week` - (Optional) The day of the week for the maintenance run. Options are `Monday`, `Tuesday`, `Wednesday`, `Thurday`, `Friday`, `Saturday` and `Sunday`. Required in combination with weekly frequency.
  - `duration` - (Required) The duration of the window for maintenance to run in hours.
  - `frequency` - (Required) Frequency of maintenance. Possible options are `Daily`, `Weekly`, `AbsoluteMonthly` and `RelativeMonthly`.
