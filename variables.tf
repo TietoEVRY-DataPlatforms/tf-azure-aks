@@ -282,8 +282,32 @@ variable "node_os_channel_upgrade" {
 
 variable "max_surge" {
   type        = string
-  default     = null
-  description = "The maximum number or percentage of nodes which will be added to the Default Node Pool size during an upgrade."
+  default     = "10"
+  description = "The maximum percentage of nodes which will be added to the Node Pool size during an upgrade"
+}
+
+variable "frequency" {
+  description = "Frequency of maintenance."
+  type        = string
+  default     = "Weekly"
+}
+
+variable "interval" {
+  description = "The interval for maintenance runs."
+  type        = number
+  default     = 1
+}
+
+variable "duration" {
+  description = "The duration of the window for maintenance to run in hours."
+  type        = string
+  default     = "5"
+}
+
+variable "day_of_week" {
+  description = "The day of the week for the maintenance run."
+  type        = string
+  default     = "Tuesday"
 }
 
 variable "maintenance_window_auto_upgrade" {
