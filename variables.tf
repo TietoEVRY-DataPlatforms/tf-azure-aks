@@ -274,15 +274,6 @@ variable "automatic_channel_upgrade" {
   default = "stable"
 }
 
-variable "not_allowed" {
-  type = map(object({
-    start = string
-    end   = string
-  }))
-
-  default = {}
-}
-
 variable "node_os_channel_upgrade" {
   type        = string
   default     = "NodeImage"
@@ -319,34 +310,74 @@ variable "day_of_week" {
   default     = "Tuesday"
 }
 
-variable "day_of_month" {
-  description = "The day of the month for the maintenance run."
-  type        = number
+variable "maintenance_window_auto_upgrade" {
+  type = object({
+    day_of_month = optional(number)
+    day_of_week  = optional(string)
+    duration     = number
+    frequency    = string
+    interval     = number
+    start_date   = optional(string)
+    start_time   = optional(string)
+    utc_offset   = optional(string)
+    week_index   = optional(string)
+    not_allowed = optional(map(object({
+      end   = string
+      start = string
+    })))
+  })
   default     = null
+  description = <<-EOT
+ - `day_of_month` - (Optional) The day of the month for the maintenance run. Required in combination with RelativeMonthly frequency. Value between 0 and 31 (inclusive).
+ - `day_of_week` - (Optional) The day of the week for the maintenance run. Options are `Monday`, `Tuesday`, `Wednesday`, `Thurday`, `Friday`, `Saturday` and `Sunday`. Required in combination with weekly frequency.
+ - `duration` - (Required) The duration of the window for maintenance to run in hours.
+ - `frequency` - (Required) Frequency of maintenance. Possible options are `Weekly`, `AbsoluteMonthly` and `RelativeMonthly`.
+ - `interval` - (Required) The interval for maintenance runs. Depending on the frequency this interval is week or month based.
+ - `start_date` - (Optional) The date on which the maintenance window begins to take effect.
+ - `start_time` - (Optional) The time for maintenance to begin, based on the timezone determined by `utc_offset`. Format is `HH:mm`.
+ - `utc_offset` - (Optional) Used to determine the timezone for cluster maintenance.
+ - `week_index` - (Optional) The week in the month used for the maintenance run. Options are `First`, `Second`, `Third`, `Fourth`, and `Last`.
+
+ ---
+ `not_allowed` block supports the following:
+ - `end` - (Required) The end of a time span, formatted as an RFC3339 string.
+ - `start` - (Required) The start of a time span, formatted as an RFC3339 string.
+EOT
 }
 
-variable "week_index" {
-  description = "Specifies on which instance of the allowed days specified in day_of_week the maintenance occurs."
-  type        = string
+variable "maintenance_window_node_os" {
+  type = object({
+    day_of_month = optional(number)
+    day_of_week  = optional(string)
+    duration     = number
+    frequency    = string
+    interval     = number
+    start_date   = optional(string)
+    start_time   = optional(string)
+    utc_offset   = optional(string)
+    week_index   = optional(string)
+    not_allowed = optional(map(object({
+      end   = string
+      start = string
+    })))
+  })
   default     = null
-}
+  description = <<-EOT
+ - `day_of_month` - (Optional) The day of the month for the maintenance run. Required in combination with RelativeMonthly frequency. Value between 0 and 31 (inclusive).
+ - `day_of_week` - (Optional) The day of the week for the maintenance run. Options are `Monday`, `Tuesday`, `Wednesday`, `Thurday`, `Friday`, `Saturday` and `Sunday`. Required in combination with weekly frequency.
+ - `duration` - (Required) The duration of the window for maintenance to run in hours.
+ - `frequency` - (Required) Frequency of maintenance. Possible options are `Daily`, `Weekly`, `AbsoluteMonthly` and `RelativeMonthly`.
+ - `interval` - (Required) The interval for maintenance runs. Depending on the frequency this interval is week or month based.
+ - `start_date` - (Optional) The date on which the maintenance window begins to take effect.
+ - `start_time` - (Optional) The time for maintenance to begin, based on the timezone determined by `utc_offset`. Format is `HH:mm`.
+ - `utc_offset` - (Optional) Used to determine the timezone for cluster maintenance.
+ - `week_index` - (Optional) The week in the month used for the maintenance run. Options are `First`, `Second`, `Third`, `Fourth`, and `Last`.
 
-variable "start_time" {
-  description = "The time for maintenance to begin, based on the timezone determined by utc_offset."
-  type        = string
-  default     = null
-}
-
-variable "utc_offset" {
-  description = "Used to determine the timezone for cluster maintenance."
-  type        = string
-  default     = "+01:00"
-}
-
-variable "start_date" {
-  description = "The date on which the maintenance window begins to take effect."
-  type        = string
-  default     = null
+ ---
+ `not_allowed` block supports the following:
+ - `end` - (Required) The end of a time span, formatted as an RFC3339 string.
+ - `start` - (Required) The start of a time span, formatted as an RFC3339 string.
+EOT
 }
 
 
@@ -360,6 +391,21 @@ variable "ingress_application_gateway_name" {
   type    = string
   default = null
 }
+variable "ingress_application_gateway_subnet_id" {
+  type    = string
+  default = null
+}
+
+variable "ingress_application_gateway_subnet_cidr" {
+  type    = string
+  default = null
+}
+
+variable "ingress_application_gateway_id" {
+  type    = string
+  default = null
+}
+
 
 variable "ingress_application_subnet_id" {
   type    = string
