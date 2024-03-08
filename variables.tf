@@ -297,7 +297,7 @@ variable "maintenance_window_auto_upgrade" {
     start_time   = optional(string)
     utc_offset   = optional(string)
     week_index   = optional(string)
-    not_allowed = optional(set(object({
+    not_allowed = optional(map(object({
       end   = string
       start = string
     })))
@@ -332,7 +332,7 @@ variable "maintenance_window_node_os" {
     start_time   = optional(string)
     utc_offset   = optional(string)
     week_index   = optional(string)
-    not_allowed = optional(set(object({
+    not_allowed = optional(map(object({
       end   = string
       start = string
     })))

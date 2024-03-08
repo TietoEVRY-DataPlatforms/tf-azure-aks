@@ -129,7 +129,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
   }
   automatic_channel_upgrade = var.automatic_channel_upgrade
 
-dynamic "maintenance_window_auto_upgrade" {
+  dynamic "maintenance_window_auto_upgrade" {
     for_each = var.maintenance_window_auto_upgrade == null ? [] : [var.maintenance_window_auto_upgrade]
     content {
       duration     = maintenance_window_auto_upgrade.value.duration
@@ -143,7 +143,7 @@ dynamic "maintenance_window_auto_upgrade" {
       week_index   = maintenance_window_auto_upgrade.value.week_index
 
       dynamic "not_allowed" {
-        for_each = maintenance_window_auto_upgrade.value.not_allowed == null ? [] : maintenance_window_auto_upgrade.value.not_allowed
+        for_each = maintenance_window_auto_upgrade.value.not_allowed == null ? {} : maintenance_window_auto_upgrade.value.not_allowed
         content {
           end   = not_allowed.value.end
           start = not_allowed.value.start
@@ -168,7 +168,7 @@ dynamic "maintenance_window_auto_upgrade" {
       week_index   = maintenance_window_node_os.value.week_index
 
       dynamic "not_allowed" {
-        for_each = maintenance_window_node_os.value.not_allowed == null ? [] : maintenance_window_node_os.value.not_allowed
+        for_each = maintenance_window_node_os.value.not_allowed == null ? {} : maintenance_window_node_os.value.not_allowed
         content {
           end   = not_allowed.value.end
           start = not_allowed.value.start
@@ -210,12 +210,12 @@ dynamic "maintenance_window_auto_upgrade" {
     orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version)
 
     dynamic "upgrade_settings" {
-        for_each = var.max_surge == null ? [] : ["upgrade_settings"]
+      for_each = var.max_surge == null ? [] : ["upgrade_settings"]
 
-        content {
-          max_surge = var.max_surge
-        }
+      content {
+        max_surge = var.max_surge
       }
+    }
   }
 
   dynamic "service_principal" {
