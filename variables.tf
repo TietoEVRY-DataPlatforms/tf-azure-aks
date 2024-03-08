@@ -316,7 +316,7 @@ variable "duration" {
 variable "day_of_week" {
   description = "The day of the week for the maintenance run."
   type        = string
-  default     = null
+  default     = "Tuesday"
 }
 
 variable "day_of_month" {
