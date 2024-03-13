@@ -271,7 +271,7 @@ variable "azure_policy_enable" {
 
 variable "automatic_channel_upgrade" {
   type    = string
-  default = "stable"
+  default = null
 }
 
 variable "node_os_channel_upgrade" {
