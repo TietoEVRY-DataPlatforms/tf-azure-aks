@@ -282,7 +282,7 @@ variable "node_os_channel_upgrade" {
 
 variable "max_surge" {
   type        = string
-  default     = "10"
+  default     = "33%"
   description = "The maximum percentage of nodes which will be added to the Node Pool size during an upgrade"
 }
 
