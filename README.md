@@ -45,7 +45,7 @@ No modules.
 | <a name="input_aks_vnet_subnet_cidr"></a> [aks\_vnet\_subnet\_cidr](#input\_aks\_vnet\_subnet\_cidr) | n/a | `string` | `"10.200.0.0/24"` | no |
 | <a name="input_aks_vnet_subnet_id"></a> [aks\_vnet\_subnet\_id](#input\_aks\_vnet\_subnet\_id) | n/a | `string` | `""` | no |
 | <a name="input_api_server_authorized_ip_ranges"></a> [api\_server\_authorized\_ip\_ranges](#input\_api\_server\_authorized\_ip\_ranges) | List of IPs to whitelist for incoming to Kubernetes API | `list(string)` | `[]` | no |
-| <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | n/a | `string` | `"stable"` | no |
+| <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | n/a | `string` | `null` | no |
 | <a name="input_azure_policy_enable"></a> [azure\_policy\_enable](#input\_azure\_policy\_enable) | Turn on Azure Policy in cluster or not | `bool` | `false` | no |
 | <a name="input_client_id"></a> [client\_id](#input\_client\_id) | azure client id | `any` | `null` | no |
 | <a name="input_client_secret"></a> [client\_secret](#input\_client\_secret) | azure client secret | `any` | `null` | no |
