@@ -371,7 +371,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-node" {
   spot_max_price  = each.value.spot_max_price
 
   dynamic "upgrade_settings" {
-    for_each = var.max_surge == null ? [] : ["upgrade_settings"]
+    for_each = var.max_surge == null || each.value.priority == "Spot" ? [] : ["upgrade_settings"]
 
     content {
       max_surge = var.max_surge
