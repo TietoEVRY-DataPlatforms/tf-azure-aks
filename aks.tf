@@ -370,6 +370,14 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-node" {
   eviction_policy = each.value.eviction_policy
   spot_max_price  = each.value.spot_max_price
 
+  dynamic "upgrade_settings" {
+    for_each = var.max_surge == null ? [] : ["upgrade_settings"]
+
+    content {
+      max_surge = var.max_surge
+    }
+  }
+
   lifecycle {
     ignore_changes = [
       # Ignore changes to default_node_pools node_count , e.g. because it is managed by enable_auto_scaling
@@ -390,11 +398,6 @@ resource "azurerm_monitor_diagnostic_setting" "aks-diagnostics" {
     content {
       category = log.key
       enabled  = log.value.enabled
-
-      retention_policy {
-        enabled = log.value.retention.enabled
-        days    = log.value.retention.days
-      }
     }
   }
   dynamic "metric" {
@@ -404,11 +407,6 @@ resource "azurerm_monitor_diagnostic_setting" "aks-diagnostics" {
     content {
       category = metric.key
       enabled  = metric.value.enabled
-
-      retention_policy {
-        enabled = metric.value.retention.enabled
-        days    = metric.value.retention.days
-      }
     }
   }
 }
