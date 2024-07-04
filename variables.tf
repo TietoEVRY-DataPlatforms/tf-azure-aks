@@ -276,7 +276,7 @@ variable "automatic_channel_upgrade" {
 
 variable "node_os_channel_upgrade" {
   type        = string
-  default     = "NodeImage"
+  default     = "None"
   description = "automatically upgrades the node image to the latest version available."
 }
 
