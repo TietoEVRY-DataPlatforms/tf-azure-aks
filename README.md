@@ -80,7 +80,7 @@ No modules.
 | <a name="input_metrics"></a> [metrics](#input\_metrics) | n/a | <pre>map(object({<br>    enabled = bool<br>    retention = object({<br>      enabled = bool<br>      days    = number<br>    })<br>  }))</pre> | `{}` | no |
 | <a name="input_msd_enable"></a> [msd\_enable](#input\_msd\_enable) | Enable audit logs collected by Microsoft Defender | `bool` | `false` | no |
 | <a name="input_msd_workspace_id"></a> [msd\_workspace\_id](#input\_msd\_workspace\_id) | Specifies the ID of the Log Analytics Workspace where the audit logs collected by Microsoft Defender should be sent to | `string` | `""` | no |
-| <a name="input_node_os_channel_upgrade"></a> [node\_os\_channel\_upgrade](#input\_node\_os\_channel\_upgrade) | automatically upgrades the node image to the latest version available. | `string` | `"NodeImage"` | no |
+| <a name="input_node_os_channel_upgrade"></a> [node\_os\_channel\_upgrade](#input\_node\_os\_channel\_upgrade) | automatically upgrades the node image to the latest version available. | `string` | `"None"` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Node pools to use | `list` | `[]` | no |
 | <a name="input_node_resource_group"></a> [node\_resource\_group](#input\_node\_resource\_group) | n/a | `any` | `null` | no |
 | <a name="input_oidc_issuer_enabled"></a> [oidc\_issuer\_enabled](#input\_oidc\_issuer\_enabled) | n/a | `bool` | `false` | no |
