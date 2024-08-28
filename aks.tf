@@ -127,7 +127,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
       authorized_ip_ranges = var.api_server_authorized_ip_ranges
     }
   }
-  automatic_channel_upgrade = var.automatic_channel_upgrade
+  automatic_upgrade_channel = var.automatic_channel_upgrade
 
   dynamic "maintenance_window_auto_upgrade" {
     for_each = var.maintenance_window_auto_upgrade == null ? [] : [var.maintenance_window_auto_upgrade]
@@ -152,7 +152,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     }
   }
 
-  node_os_channel_upgrade = var.node_os_channel_upgrade
+  node_os_upgrade_channel = var.node_os_channel_upgrade
 
   dynamic "maintenance_window_node_os" {
     for_each = var.maintenance_window_node_os == null ? [] : [var.maintenance_window_node_os]
@@ -202,7 +202,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     vnet_subnet_id       = var.create_vnet ? element(concat(azurerm_subnet.k8s_agent_subnet[*].id, [""]), 0) : var.aks_vnet_subnet_id
     zones                = lookup(var.default_pool, "zones", local.default_pool_settings.zones)
     type                 = lookup(var.default_pool, "type", local.default_pool_settings.default_pool_type)
-    enable_auto_scaling  = lookup(var.default_pool, "enable_auto_scaling", true)
+    auto_scaling_enabled = lookup(var.default_pool, "enable_auto_scaling", true)
     min_count            = lookup(var.default_pool, "min_count", lookup(var.default_pool, "enable_auto_scaling", true) ? local.default_pool_settings.min_count : null)
     max_count            = lookup(var.default_pool, "max_count", lookup(var.default_pool, "enable_auto_scaling", true) ? local.default_pool_settings.max_count : null)
     tags                 = lookup(var.default_pool, "tags", var.tags)
@@ -239,18 +239,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
   dynamic "azure_active_directory_role_based_access_control" {
     for_each = var.rbac_enable && var.rbac_managed ? [1] : []
     content {
-      managed                = true
       admin_group_object_ids = var.rbac_admin_group_ids
-    }
-  }
-
-  dynamic "azure_active_directory_role_based_access_control" {
-    for_each = var.rbac_enable && var.rbac_managed == false ? [1] : []
-    content {
-      managed           = false
-      client_app_id     = var.rbac_managed == false ? var.rbac_client_app_id : null
-      server_app_id     = var.rbac_managed == false ? var.rbac_server_app_id : null
-      server_app_secret = var.rbac_managed == false ? var.rbac_server_app_secret : null
     }
   }
 
@@ -355,13 +344,13 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-node" {
   vnet_subnet_id  = each.value.vnet_subnet_id
   zones           = each.value.zones
 
-  mode                = each.value.mode
-  enable_auto_scaling = each.value.enable_auto_scaling
-  min_count           = each.value.min_count
-  max_count           = each.value.max_count
-  tags                = each.value.tags
-  node_labels         = each.value.node_labels
-  node_taints         = each.value.node_taints
+  mode                 = each.value.mode
+  auto_scaling_enabled = each.value.enable_auto_scaling
+  min_count            = each.value.min_count
+  max_count            = each.value.max_count
+  tags                 = each.value.tags
+  node_labels          = each.value.node_labels
+  node_taints          = each.value.node_taints
 
   max_pods             = each.value.max_pods
   orchestrator_version = each.value.k8s_version
@@ -392,12 +381,11 @@ resource "azurerm_monitor_diagnostic_setting" "aks-diagnostics" {
   target_resource_id         = azurerm_kubernetes_cluster.k8s_cluster.id
   log_analytics_workspace_id = var.oms_workspace_id
 
-  dynamic "log" {
+  dynamic "enabled_log" {
     for_each = merge(local.default_log_analytics, var.log_analytics)
 
     content {
       category = log.key
-      enabled  = log.value.enabled
     }
   }
   dynamic "metric" {
