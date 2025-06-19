@@ -1,23 +1,24 @@
 locals {
   default_pool_settings = {
-    name              = "default"
-    node_count        = 2
-    vm_size           = "Standard_D3_v2"
-    os_type           = "Linux"
-    os_disk_size_gb   = 50
-    os_disk_type      = "Ephemeral"
-    default_pool_type = "VirtualMachineScaleSets"
-    min_count         = 1
-    max_count         = 2
-    zones             = []
-    vnet_subnet_id    = var.aks_vnet_subnet_id
-    max_pods          = 30
-    priority          = "Regular"
-    eviction_policy   = "Delete"
-    k8s_version       = var.k8s_version
-    node_labels       = {}
-    node_taints       = []
-    spot_max_price    = -1
+    name                        = "default"
+    node_count                  = 2
+    vm_size                     = "Standard_D3_v2"
+    os_type                     = "Linux"
+    os_disk_size_gb             = 50
+    os_disk_type                = "Ephemeral"
+    default_pool_type           = "VirtualMachineScaleSets"
+    min_count                   = 1
+    max_count                   = 2
+    zones                       = []
+    vnet_subnet_id              = var.aks_vnet_subnet_id
+    max_pods                    = 30
+    priority                    = "Regular"
+    eviction_policy             = "Delete"
+    k8s_version                 = var.k8s_version
+    temporary_name_for_rotation = "poolTemporaryName"
+    node_labels                 = {}
+    node_taints                 = []
+    spot_max_price              = -1
   }
 
   node_pools = {
@@ -207,7 +208,9 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     max_count            = lookup(var.default_pool, "max_count", lookup(var.default_pool, "enable_auto_scaling", true) ? local.default_pool_settings.max_count : null)
     tags                 = lookup(var.default_pool, "tags", var.tags)
     max_pods             = lookup(var.default_pool, "max_pods", local.default_pool_settings.max_pods)
-    orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version)
+    orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version),
+    temporary_name_for_rotation = lookup(var.default_pool, "temporary_name_for_rotation", local.default_pool_settings.temporary_name_for_rotation)
+
 
     dynamic "upgrade_settings" {
       for_each = var.max_surge == null ? [] : ["upgrade_settings"]
