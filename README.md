@@ -102,6 +102,7 @@ No modules.
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | public key to add to admin\_user in VMs | `any` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | # Metadata ## | `map` | `{}` | no |
 | <a name="input_workload_identity_enabled"></a> [workload\_identity\_enabled](#input\_workload\_identity\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_temporary_name_for_rotation"></a> [temporary\_name\_for\_rotation](#temporary\_name\_for\_rotation) | Temporary pool name, that is needed when for instance you want to upgrade the VMs and rotate the pool | `string` | `poolTemporaryName` | no |
 
 ## Outputs
 
