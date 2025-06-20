@@ -208,7 +208,7 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     max_count            = lookup(var.default_pool, "max_count", lookup(var.default_pool, "enable_auto_scaling", true) ? local.default_pool_settings.max_count : null)
     tags                 = lookup(var.default_pool, "tags", var.tags)
     max_pods             = lookup(var.default_pool, "max_pods", local.default_pool_settings.max_pods)
-    orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version),
+    orchestrator_version = lookup(var.default_pool, "k8s_version", local.default_pool_settings.k8s_version)
     temporary_name_for_rotation = lookup(var.default_pool, "temporary_name_for_rotation", local.default_pool_settings.temporary_name_for_rotation)
 
 
