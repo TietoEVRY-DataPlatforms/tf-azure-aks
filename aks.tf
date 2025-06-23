@@ -15,7 +15,7 @@ locals {
     priority                    = "Regular"
     eviction_policy             = "Delete"
     k8s_version                 = var.k8s_version
-    temporary_name_for_rotation = "pool_temp_name"
+    temporary_name_for_rotation = "pooltempname"
     node_labels                 = {}
     node_taints                 = []
     spot_max_price              = -1
