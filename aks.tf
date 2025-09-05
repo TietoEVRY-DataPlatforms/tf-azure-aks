@@ -93,6 +93,15 @@ locals {
       retention = { enabled = false, days = 0 }
     }
   }
+
+  # Safe defaults used when callers don't pass var.upgrade_override.
+  # We keep the block present (disabled), so Terraform never tries to "unset" it.
+  # Using a past date avoids perpetual diffs; AKS only cares about the 30-day
+  # rule when the override is actually enabled.
+  upgrade_override_defaults = {
+    force_upgrade_enabled = false
+    effective_until       = "1970-01-01T00:00:00Z"
+  }
 }
 
 resource "azurerm_virtual_network" "k8s_agent_network" {
