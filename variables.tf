@@ -20,12 +20,16 @@ variable "upgrade_override" {
     # this MUST be within the next 30 days (AKS requirement).
     effective_until       = string
   })
-  default = null
+  default = {
+      force_upgrade_enabled = false
+      effective_until = "2100-01-01T00:00:00Z"
+  }
+
 
   # When forcing, ensure effective_until is within the next 30 days.
   validation {
-    condition = (
-      var.upgrade_override == null ||
+    condition =
+    (
       var.upgrade_override.force_upgrade_enabled == false ||
       (
         # timecmp(a,b): -1 if a < b, 0 if equal, 1 if a > b
