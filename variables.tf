@@ -13,6 +13,30 @@ variable "resource_group_location" {
   default     = "West Europe"
 }
 
+variable "upgrade_override" {
+  type = object({
+    force_upgrade_enabled = bool
+    # RFC3339 (e.g., "2025-10-01T13:00:00Z"). If force_upgrade_enabled = true,
+    # this MUST be within the next 30 days (AKS requirement).
+    effective_until       = string
+  })
+  default = null
+
+  # When forcing, ensure effective_until is within the next 30 days.
+  validation {
+    condition = (
+      var.upgrade_override == null ||
+      var.upgrade_override.force_upgrade_enabled == false ||
+      (
+        # timecmp(a,b): -1 if a < b, 0 if equal, 1 if a > b
+        timecmp(timestamp(), var.upgrade_override.effective_until) == -1 &&
+        timecmp(var.upgrade_override.effective_until, timeadd(timestamp(), "720h")) <= 0
+      )
+    )
+    error_message = "When force_upgrade_enabled is true, effective_until must be an RFC3339 time within the next 30 days."
+  }
+}
+
 ## AKS variables ##
 variable "agent_net_name" {
   type        = string
