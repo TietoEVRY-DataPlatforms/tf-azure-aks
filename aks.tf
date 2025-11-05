@@ -325,6 +325,11 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     }
   }
 
+  # Always define this block so Terraform never "unsets" it
+  upgrade_override {
+    force_upgrade_enabled = var.upgrade_override.force_upgrade_enabled
+    effective_until       = var.upgrade_override.effective_until
+  }
 
   tags = var.tags
 
