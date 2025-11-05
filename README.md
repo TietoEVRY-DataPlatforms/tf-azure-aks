@@ -101,6 +101,7 @@ No modules.
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of RG the environment will run inside | `any` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | public key to add to admin\_user in VMs | `any` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | # Metadata ## | `map` | `{}` | no |
+| <a name="input_upgrade_override"></a> [upgrade\_override](#input\_upgrade\_override) | n/a | <pre>object({<br/>    force_upgrade_enabled = bool<br/>    # RFC3339 (e.g., "2025-10-01T13:00:00Z"). If force_upgrade_enabled = true,<br/>    # this MUST be within the next 30 days (AKS requirement).<br/>    effective_until = string<br/>  })</pre> | <pre>{<br/>  "effective_until": "2100-01-01T00:00:00Z",<br/>  "force_upgrade_enabled": false<br/>}</pre> | no |
 | <a name="input_workload_identity_enabled"></a> [workload\_identity\_enabled](#input\_workload\_identity\_enabled) | n/a | `bool` | `false` | no |
 
 ## Outputs
